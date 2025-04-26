@@ -1,0 +1,108 @@
+﻿@{
+    ViewData["Title"] = "HR Manager Dashboard";
+}
+
+<div class="container mt-5 pb-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+
+            <div class="card shadow-lg rounded-4 border-0 bg-light p-5 text-center">
+                <h2 class="mb-4 text-info fw-bold">Welcome, @ViewBag.Username 👨‍💼</h2>
+                <p class="text-muted mb-5">Manage your departments, employees, leave requests, and bonuses from this central hub.</p>
+
+                <div class="row mt-5 g-4 justify-content-center">
+                    <div class="col-md-3">
+                        <a asp-controller="Departments" asp-action="Index" class="btn btn-outline-warning btn-lg w-100 py-3 rounded-4 shadow-sm fw-semibold">
+                            <i class="fa fa-folder me-2"></i> Departments
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a asp-controller="Employes" asp-action="Index" class="btn btn-outline-success btn-lg w-100 py-3 rounded-4 shadow-sm fw-semibold">
+                            <i class="fa fa-users me-2"></i> Employees
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a asp-controller="LeaveApplications" asp-action="Index" class="btn btn-outline-primary btn-lg w-100 py-3 rounded-4 shadow-sm fw-semibold">
+                            <i class="fa fa-calendar-alt me-2"></i> Leaves
+                        </a>
+                    </div>
+
+                    <div class="col-md-3">
+                        <a asp-controller="SalaryBonus" asp-action="Index" class="btn btn-outline-info btn-lg w-100 py-3 rounded-4 shadow-sm fw-semibold">
+                            <i class="fa fa-coins me-2"></i> Bonuses
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        /* Background and card styling */
+        .card {
+            background: #f9f9f9;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Title and Modal Styling */
+        h2 {
+            font-size: 2.5rem;
+        }
+
+        /* Button Styling */
+        .btn-outline-warning {
+            color: #ffc107;
+            border-color: #ffc107;
+        }
+
+            .btn-outline-warning:hover {
+                background-color: #ffc107;
+                color: white;
+            }
+
+        .btn-outline-success {
+            color: #28a745;
+            border-color: #28a745;
+        }
+
+            .btn-outline-success:hover {
+                background-color: #28a745;
+                color: white;
+            }
+
+        .btn-outline-primary {
+            color: #007bff;
+            border-color: #007bff;
+        }
+
+            .btn-outline-primary:hover {
+                background-color: #007bff;
+                color: white;
+            }
+
+        .btn-outline-info {
+            color: #17a2b8;
+            border-color: #17a2b8;
+        }
+
+            .btn-outline-info:hover {
+                background-color: #17a2b8;
+                color: white;
+            }
+
+        
+
+        /* Shadow and button effects */
+        .btn-lg {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+            .btn-lg:hover {
+                transform: translateY(-3px);
+            }
+    </style>
+}

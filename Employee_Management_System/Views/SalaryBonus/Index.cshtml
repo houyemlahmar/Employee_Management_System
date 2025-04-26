@@ -1,0 +1,130 @@
+﻿@model IEnumerable<Employee_Management_System.Models.SalaryBonus>
+
+@{
+    ViewData["Title"] = "Salary Bonus Management";
+}
+
+<div class="container my-5 pb-5 mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="fw-bold">Salary Bonus Management</h1>
+        <div>
+            <a asp-action="Create" class="btn btn-info">
+                <i class="bi bi-plus-circle me-2"></i> Add New Salary Bonus
+            </a>
+        </div>
+    </div>
+
+    <div class="mb-4">
+        <input id="searchInput" type="text" class="form-control" placeholder="Search by Type..." />
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered align-middle shadow-sm" id="salaryBonusTable">
+            <thead style="background-color: #0d6efd; color: white;">
+                <tr>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Type</td>
+                        <td>@item.Description</td>
+                        <td>@item.Amount</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info text-white">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <a asp-controller="Home" asp-action="Dashboard" class="btn btn-outline-secondary me-2">
+            <i class="bi bi-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+</div>
+
+@section Scripts {
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const rowsPerPage = 10;
+            let currentPage = 1;
+            const allRows = Array.from(document.querySelectorAll('#salaryBonusTable tbody tr'));
+            let filteredRows = [...allRows];
+
+            const paginationDiv = document.createElement('div');
+            paginationDiv.id = 'pagination';
+            paginationDiv.className = 'd-flex justify-content-center mt-4';
+            document.querySelector('.table-responsive').after(paginationDiv);
+
+            function renderTable() {
+                allRows.forEach(row => row.style.display = 'none');
+                const start = (currentPage - 1) * rowsPerPage;
+                const end = start + rowsPerPage;
+                filteredRows.forEach((row, index) => {
+                    if (index >= start && index < end) {
+                        row.style.display = '';
+                    }
+                });
+            }
+
+            function renderPagination() {
+                const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
+                const pagination = document.getElementById('pagination');
+                pagination.innerHTML = '';
+
+                if (totalPages <= 1) return;
+
+                for (let i = 1; i <= totalPages; i++) {
+                    const btn = document.createElement('button');
+                    btn.textContent = i;
+                    btn.className = `btn btn-sm mx-1 rounded-pill ${i === currentPage ? 'btn-primary' : 'btn-outline-primary'}`;
+                    btn.addEventListener('click', function () {
+                        currentPage = i;
+                        renderTable();
+                        renderPagination();
+                    });
+                    pagination.appendChild(btn);
+                }
+            }
+
+            function updateTable() {
+                currentPage = 1;
+                renderTable();
+                renderPagination();
+            }
+
+            document.getElementById('searchInput').addEventListener('input', function () {
+                const searchValue = this.value.trim().toLowerCase();
+                filteredRows = allRows.filter(row => {
+                    const type = row.querySelector('td:nth-child(1)')?.textContent.trim().toLowerCase() || '';
+                    return type.includes(searchValue);
+                });
+
+                updateTable();
+            });
+
+            // Initial load
+            updateTable();
+        });
+    </script>
+}

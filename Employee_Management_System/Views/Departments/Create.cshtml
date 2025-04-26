@@ -1,0 +1,74 @@
+﻿@model Employee_Management_System.Models.Department
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="container my-5 pb-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg rounded-4">
+                <div class="card-header bg-warning text-white text-center rounded-top-4">
+                    <h2 class="mb-0">Create New Department</h2>
+                </div>
+                <div class="card-body p-5">
+                    <h4 class="mb-4">Department Details</h4>
+                    <hr />
+
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Nom" class="form-label">Department Name</label>
+                            <input asp-for="Nom" class="form-control" placeholder="Enter department name" />
+                            <span asp-validation-for="Nom" class="text-danger small"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn custom-btn btn-sm w-50 me-2">
+                                <i class="bi bi-plus-circle"></i> Create
+                            </button>
+                            <a asp-action="Index" class="btn custom-btn-outline btn-sm w-50 ms-2">
+                                <i class="bi bi-arrow-left"></i> Back to List
+                            </a>
+                        </div>
+                    </form>
+
+                    
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .custom-btn {
+            background-color: #28a745;
+            color: white;
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+            .custom-btn:hover {
+                background-color: #218838;
+            }
+
+        .custom-btn-outline {
+            background-color: transparent;
+            color: #f1c40f; /* Light yellow text */
+            border-radius: 25px;
+            padding: 10px 20px;
+            border: 2px solid #f1c40f; /* Light yellow border */
+            font-weight: bold;
+        }
+
+            .custom-btn-outline:hover {
+                background-color: #f1c40f; /* Light yellow background on hover */
+                color: white; /* White text on hover */
+            }
+    </style>
+}

@@ -1,0 +1,108 @@
+﻿@model Employee_Management_System.Models.SalaryBonus
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="container my-5 pb-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg rounded-4">
+                <div class="card-header bg-info text-white text-center rounded-top-4">
+                    <h2 class="mb-0">Create New Salary Bonus</h2>
+                </div>
+                <div class="card-body p-5">
+                    <h4 class="mb-4">Salary Bonus Details</h4>
+                    <hr />
+
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Type" class="form-label">Bonus Type</label>
+                            <input asp-for="Type" class="form-control" placeholder="Enter bonus type" />
+                            <span asp-validation-for="Type" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Description" class="form-label">Description</label>
+                            <input asp-for="Description" class="form-control" placeholder="Enter bonus description" />
+                            <span asp-validation-for="Description" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Amount" class="form-label">Amount</label>
+                            <input asp-for="Amount" class="form-control" placeholder="Enter bonus amount" />
+                            <span asp-validation-for="Amount" class="text-danger small"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn custom-btn btn-sm w-50 me-2">
+                                <i class="bi bi-plus-circle"></i> Create
+                            </button>
+                            <a asp-action="Index" class="btn custom-btn-outline btn-sm w-50 ms-2">
+                                <i class="bi bi-arrow-left"></i> Back to List
+                            </a>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .custom-btn {
+            background-color: #007bff; /* Bleu moyen pour bouton Create */
+            color: white;
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+            .custom-btn:hover {
+                background-color: #0056b3;
+            }
+
+        /* Bouton Back to List - même couleur que l'entête */
+        .custom-btn-outline {
+            background-color: transparent;
+            color: #17a2b8; /* Couleur bleu clair de l'entête */
+            border-radius: 25px;
+            padding: 10px 20px;
+            border: 2px solid #17a2b8;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+            .custom-btn-outline:hover {
+                background-color: #17a2b8;
+                color: white;
+            }
+
+        .container {
+            max-width: 900px;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .card-header, .card-body {
+            background-color: #f7fafc; /* Blanc légèrement gris */
+        }
+
+        .d-flex {
+            padding: 0;
+        }
+    </style>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

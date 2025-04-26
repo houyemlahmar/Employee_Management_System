@@ -1,0 +1,179 @@
+﻿@model Employee_Management_System.Models.Employe
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1 class="text-center custom-header">Employee Details</h1>
+
+<div class="container my-5 pb-5 mb-5">
+    <div class="card shadow-lg rounded-4">
+        <div class="card-header custom-header">
+            <h2 class="mb-0">Employee Information</h2>
+        </div>
+        <div class="card-body p-5">
+            <h4>Employee Details</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.FullName)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.FullName)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Email)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+                <dt class="col-sm-3">Password</dt>
+                <dd class="col-sm-9">
+                    <div class="input-group">
+                        <input id="password-details" type="password" value="@Model.Password" class="form-control custom-input" readonly />
+                        <span class="input-group-text" onclick="togglePasswordVisibility('password-details')">
+                            <i id="icon-password-details" class="fa fa-eye" style="cursor:pointer;"></i>
+                        </span>
+                    </div>
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Salary)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Salary)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.SalaryRaised)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.SalaryRaised)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.AnnualLeaveDays)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.AnnualLeaveDays)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.PostePosition)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.PostePosition)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.HireDate)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.HireDate)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Department)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Department.Nom)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.SalaryBonuses)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.SalaryBonuses.Type)
+                </dd>
+            </dl>
+        </div>
+        <div class="d-flex justify-content-between p-3">
+            <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn custom-btn btn-sm">
+                <i class="bi bi-pencil-square"></i> Edit
+            </a>
+            <a asp-action="Index" class="btn custom-btn-outline btn-sm">
+                <i class="bi bi-arrow-left"></i> Back to List
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .custom-header {
+            background-color: #e3b0b8; /* Rouge doux */
+            color: black;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .custom-input {
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .custom-select {
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .custom-btn {
+            background-color: #c92a2a; /* Rouge plus doux */
+            color: white;
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+            .custom-btn:hover {
+                background-color: #a51f1f; /* Rouge plus foncé */
+            }
+
+        .custom-btn-outline {
+            background-color: transparent;
+            color: #c92a2a; /* Rouge doux */
+            border-radius: 25px;
+            padding: 10px 20px;
+            border: 2px solid #c92a2a; /* Rouge doux */
+            font-weight: bold;
+        }
+
+            .custom-btn-outline:hover {
+                background-color: #c92a2a; /* Rouge doux */
+                color: white;
+            }
+
+        .container {
+            max-width: 900px;
+        }
+
+        .row {
+            margin-bottom: 20px;
+        }
+
+        .card-header, .card-body {
+            background-color: #f7fafc; /* Blanc légèrement gris */
+        }
+
+        .d-flex {
+            padding: 0;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function togglePasswordVisibility(inputId) {
+            var input = document.getElementById(inputId);
+            var icon = document.getElementById("icon-" + inputId);
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                input.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        }
+    </script>
+}

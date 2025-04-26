@@ -1,0 +1,104 @@
+﻿@model Employee_Management_System.Models.SalaryBonus
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="container my-5 pb-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg rounded-4">
+                <div class="card-header bg-warning text-white text-center rounded-top-4">
+                    <h2 class="mb-0">Edit Salary Bonus</h2>
+                </div>
+                <div class="card-body p-5">
+                    <h3 class="text-center mb-4">Edit Salary Bonus Information</h3>
+                    <hr />
+
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="form-group mb-4">
+                            <label asp-for="Type" class="control-label">Bonus Type</label>
+                            <input asp-for="Type" class="form-control" />
+                            <span asp-validation-for="Type" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label asp-for="Description" class="control-label">Description</label>
+                            <input asp-for="Description" class="form-control" />
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label asp-for="Amount" class="control-label">Amount</label>
+                            <input asp-for="Amount" class="form-control" />
+                            <span asp-validation-for="Amount" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <input type="submit" value="Save" class="btn btn-warning w-48" />
+                            <a asp-action="Index" class="btn btn-outline-warning w-48">Back to List</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        /* Custom styles for form buttons */
+        .d-flex {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px; /* Adds space between the buttons */
+        }
+
+        .w-48 {
+            width: 48%; /* Set each button to take 48% width of the container */
+        }
+
+        /* Existing styles */
+        .card-header {
+            background-color: #ffc107 !important;
+            border-top-left-radius: 0.25rem;
+            border-top-right-radius: 0.25rem;
+        }
+
+        .card-body {
+            background-color: #f8f9fa;
+        }
+
+        .btn-warning {
+            background-color: #ffc107;
+            border-color: #ffc107;
+            font-size: 16px;
+            padding: 10px;
+        }
+
+        .btn-outline-warning {
+            background-color: #f8f9fa;
+            border-color: #ffc107;
+            color: #ffc107;
+            font-size: 16px;
+            padding: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .row {
+            margin-bottom: 1rem;
+        }
+    </style>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

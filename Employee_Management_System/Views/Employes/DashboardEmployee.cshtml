@@ -1,0 +1,163 @@
+﻿@model Employee_Management_System.Models.Employe
+
+@{
+    ViewData["Title"] = "Employee Dashboard";
+}
+
+<div class="container mt-5 pb-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <div class="card shadow-lg rounded-4 border-0 bg-light p-5 text-center">
+                <h2 class="mb-4 text-info fw-bold">Welcome back, @Model.FullName 👋</h2>
+
+                <p class="text-muted mb-5">Your personal dashboard is ready. Here you can view your details and manage your leave requests with ease.</p>
+
+                <div class="d-flex justify-content-center gap-4 flex-wrap">
+                    <!-- Info Modal Button -->
+                    <button type="button" class="btn btn-outline-info btn-lg rounded-pill px-4 py-2 shadow-sm fw-semibold" data-bs-toggle="modal" data-bs-target="#infoModal">
+                        <i class="fa fa-user-circle me-2"></i> My Info
+                    </button>
+
+                    <!-- Leave Application Link -->
+                    <a asp-action="MyLeaves" asp-controller="LeaveApplications" class="btn btn-outline-success btn-lg rounded-pill px-4 py-2 shadow-sm fw-semibold">
+                        <i class="fa fa-calendar-check me-2"></i> Request Leave
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content rounded-4 shadow-lg">
+            <div class="modal-header bg-info text-white rounded-top-4">
+                <h5 class="modal-title fw-bold" id="infoModalLabel">
+                    <i class="fa fa-id-card me-2"></i> My Personal Information
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-4">
+                <dl class="row">
+                    <dt class="col-sm-4">Full Name:</dt>
+                    <dd class="col-sm-8">@Model.FullName</dd>
+
+                    <dt class="col-sm-4">Email:</dt>
+                    <dd class="col-sm-8">@Model.Email</dd>
+
+                    <dt class="col-sm-4">Position:</dt>
+                    <dd class="col-sm-8">@Model.PostePosition</dd>
+
+                    <dt class="col-sm-4">Salary:</dt>
+                    <dd class="col-sm-8">@Model.Salary DT</dd>
+
+                    <dt class="col-sm-4">Annual Leave Days:</dt>
+                    <dd class="col-sm-8">@Model.AnnualLeaveDays</dd>
+
+                    <dt class="col-sm-4">Hire Date:</dt>
+                    <dd class="col-sm-8">@Model.HireDate.ToShortDateString()</dd>
+
+                    <dt class="col-sm-4">Password:</dt>
+                    <dd class="col-sm-8">
+                        <div class="input-group">
+                            <input type="password" class="form-control form-control-plaintext" id="passwordField" value="@Model.Password" readonly>
+                            <button class="btn btn-outline-secondary" type="button" onclick="togglePasswordVisibility('passwordField')">
+                                <i class="fa fa-eye" id="icon-passwordField"></i>
+                            </button>
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">
+                    <i class="fa fa-times me-1"></i> Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        /* Background and card styles */
+        .card {
+            background: #f9f9f9;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Title and Modal Styling */
+        h2 {
+            font-size: 2.5rem;
+        }
+
+        .modal-header {
+            background-color: #17a2b8;
+        }
+
+        /* Button Styling */
+        .btn-outline-info {
+            color: #17a2b8;
+            border-color: #17a2b8;
+        }
+
+            .btn-outline-info:hover {
+                background-color: #17a2b8;
+                color: white;
+            }
+
+        .btn-outline-success {
+            color: #28a745;
+            border-color: #28a745;
+        }
+
+            .btn-outline-success:hover {
+                background-color: #28a745;
+                color: white;
+            }
+
+        /* Modal body styles */
+        .modal-body {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .input-group {
+            width: 100%;
+        }
+
+        /* Input field and button styling for password toggle */
+        #passwordField {
+            background-color: transparent;
+            border: none;
+            box-shadow: none;
+        }
+
+        .btn-outline-secondary {
+            border-radius: 50%;
+            font-size: 1.2rem;
+            background-color: #f1f1f1;
+        }
+
+        /* Modal content shadow */
+        .modal-content {
+            border-radius: 1rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+
+        /* Shadow and button effects */
+        .btn-lg {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+            .btn-lg:hover {
+                transform: translateY(-3px);
+            }
+
+    </style>
+}

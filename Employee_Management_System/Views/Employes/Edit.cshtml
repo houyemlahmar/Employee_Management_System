@@ -1,0 +1,189 @@
+﻿@model Employee_Management_System.Models.Employe
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="container my-5 pb-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg rounded-4">
+                <div class="card-header custom-header">
+                    <h2 class="mb-0">Edit Employee</h2>
+                </div>
+                <div class="card-body p-5">
+                    <form asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label asp-for="FullName" class="form-label">Full Name</label>
+                                <input asp-for="FullName" class="form-control custom-input" placeholder="Enter full name" />
+                                <span asp-validation-for="FullName" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Email" class="form-label">Email</label>
+                                <input asp-for="Email" class="form-control custom-input" placeholder="Enter email" />
+                                <span asp-validation-for="Email" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label asp-for="Password" class="form-label">Password</label>
+                                <div class="input-group">
+                                    <input id="password-edit" type="password" name="Password" value="@Model.Password" class="form-control custom-input" />
+                                    <span class="input-group-text" onclick="togglePasswordVisibility('password-edit')">
+                                        <i id="icon-password-edit" class="fa fa-eye" style="cursor:pointer;"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Salary" class="form-label">Salary</label>
+                                <input asp-for="Salary" class="form-control custom-input" placeholder="Enter base salary" />
+                                <span asp-validation-for="Salary" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label asp-for="SalaryBonusId" class="form-label">Salary Bonus</label>
+                                <select asp-for="SalaryBonusId" class="form-select custom-select" asp-items="ViewBag.SalaryBonusId">
+                                    <option value="">-- No Bonus --</option>
+                                </select>
+                                <span asp-validation-for="SalaryBonusId" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="SalaryRaised" class="form-label">Salary Raised</label>
+                                <input asp-for="SalaryRaised" class="form-control custom-input" placeholder="Calculated salary" readonly />
+                                <span asp-validation-for="SalaryRaised" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label asp-for="AnnualLeaveDays" class="form-label">Annual Leave Days</label>
+                                <input asp-for="AnnualLeaveDays" class="form-control custom-input" placeholder="Enter number of leave days" />
+                                <span asp-validation-for="AnnualLeaveDays" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="PostePosition" class="form-label">Poste Position</label>
+                                <input asp-for="PostePosition" class="form-control custom-input" placeholder="Enter job position" />
+                                <span asp-validation-for="PostePosition" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label asp-for="HireDate" class="form-label">Hire Date</label>
+                                <input asp-for="HireDate" class="form-control custom-input" type="date" />
+                                <span asp-validation-for="HireDate" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="DepartmentId" class="form-label">Department</label>
+                                <select asp-for="DepartmentId" class="form-select custom-select" asp-items="ViewBag.DepartmentId"></select>
+                                <span asp-validation-for="DepartmentId" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn custom-btn btn-sm w-50 me-2">
+                                <i class="bi bi-save"></i> Save
+                            </button>
+                            <a asp-action="Index" class="btn custom-btn-outline btn-sm w-50 ms-2">
+                                <i class="bi bi-arrow-left"></i> Back to List
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .custom-header {
+            background-color: #fbc02d; /* Jaune plus foncé */
+            color: black;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .custom-input {
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .custom-select {
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .custom-btn {
+            background-color: #28a745;
+            color: white;
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+            .custom-btn:hover {
+                background-color: #218838;
+            }
+
+        .custom-btn-outline {
+            background-color: transparent;
+            color: #fbc02d; /* Jaune plus foncé */
+            border-radius: 25px;
+            padding: 10px 20px;
+            border: 2px solid #fbc02d; /* Jaune plus foncé */
+            font-weight: bold;
+        }
+
+            .custom-btn-outline:hover {
+                background-color: #fbc02d; /* Jaune plus foncé */
+                color: white;
+            }
+
+        .container {
+            max-width: 900px;
+        }
+
+        .row {
+            margin-bottom: 20px;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            function updateSalaryRaised() {
+                var salary = parseFloat($("#Salary").val()) || 0;
+                var bonusText = $("#SalaryBonusId option:selected").text();
+                var bonusId = $("#SalaryBonusId").val();
+
+                if (bonusId && bonusId != "0") {
+                    var match = bonusText.match(/\(([\d.]+)\)/);
+                    var bonus = match ? parseFloat(match[1]) : 0;
+                    var total = Math.round(salary + bonus);
+                    $("#SalaryRaised").val(total);
+                } else {
+                    $("#SalaryRaised").val(Math.round(salary));
+                }
+            }
+
+            updateSalaryRaised();
+
+            $("#Salary, #SalaryBonusId").on("input change", updateSalaryRaised);
+        });
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

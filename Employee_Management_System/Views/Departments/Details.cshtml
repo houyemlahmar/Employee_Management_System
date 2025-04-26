@@ -1,0 +1,78 @@
+﻿@model Employee_Management_System.Models.Department
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container my-5 pb-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg rounded-4">
+                <div class="card-header bg-info text-white text-center rounded-top-4">
+                    <h2 class="mb-0">Department Details</h2>
+                </div>
+                <div class="card-body p-5">
+                    <h3 class="text-center mb-4">Department Information</h3>
+                    <hr />
+                    <dl class="row mb-4">
+                        <dt class="col-sm-3">Name:</dt>
+                        <dd class="col-sm-9">
+                            @Html.DisplayFor(model => model.Nom)
+                        </dd>
+                    </dl>
+
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-info w-48">
+                            <i class="bi bi-pencil"></i> Edit
+                        </a>
+                        <a asp-action="Index" class="btn btn-outline-info w-48">
+                            <i class="bi bi-arrow-left"></i> Back to List
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .card-header {
+            background-color: #17a2b8 !important;
+            border-top-left-radius: 0.25rem;
+            border-top-right-radius: 0.25rem;
+        }
+
+        .card-body {
+            background-color: #f8f9fa;
+        }
+
+        .btn-info {
+            background-color: #17a2b8;
+            border-color: #17a2b8;
+        }
+
+        .btn-outline-info {
+            background-color: #f8f9fa;
+            border-color: #17a2b8;
+            color: #17a2b8;
+        }
+
+        .btn {
+            font-size: 16px;
+            padding: 10px;
+        }
+
+        .w-48 {
+            width: 48%;
+        }
+
+        dl {
+            margin-bottom: 0;
+        }
+
+        .row {
+            margin-bottom: 1rem;
+        }
+    </style>
+}

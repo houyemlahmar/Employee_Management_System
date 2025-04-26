@@ -1,0 +1,169 @@
+﻿@model IEnumerable<Employee_Management_System.Models.LeaveApplication>
+@{
+    ViewData["Title"] = "My Leave Applications";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-5 pb-5 mb-5">
+    <h2 class="text-primary mb-4 text-center">My Leave Applications</h2>
+
+    <!-- Barre de Recherche et Bouton Submit New Leave sur la même ligne -->
+    <div class="row mb-4">
+        <!-- Barre de Recherche -->
+        <div class="col-md-8">
+            <input id="searchInput" type="text" class="form-control" placeholder="Search by Priority or Status..." />
+        </div>
+
+        <!-- Bouton Submit New Leave -->
+        <div class="col-md-4 text-end">
+            <a class="btn btn-outline-success btn-sm rounded-pill px-3 py-1 shadow-sm fw-semibold" asp-action="Create">
+                <i class="fa fa-plus me-2"></i> Submit New Leave
+            </a>
+        </div>
+    </div>
+
+    <!-- Tableau des demandes de congé -->
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered align-middle shadow-sm" id="leaveTable">
+            <thead style="background-color: #cfe2ff; color: black;">
+                <tr class="text-center">
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Type</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Leave Days Asked</th>
+                    <th>Annual Leave Days</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    var leaveDays = (int)(item.EndDate - item.StartDate).TotalDays + 1;
+                    var annualDays = item.Employe?.AnnualLeaveDays ?? 0;
+
+                    bool isOverLimit = item.Status == LeaveStatus.Pending && leaveDays > annualDays;
+                    string leaveClass = isOverLimit ? "text-danger fw-bold" : "";
+
+                    <tr class="text-center">
+                        <td>@item.StartDate.ToShortDateString()</td>
+                        <td>@item.EndDate.ToShortDateString()</td>
+                        <td>@item.Type</td>
+                        <td>@item.Priority</td>
+                        <td>
+                            <span class="badge @(item.Status == LeaveStatus.Accepted ? "bg-success" : item.Status == LeaveStatus.Refused ? "bg-danger" : "bg-warning text-dark")">
+                                @item.Status
+                            </span>
+                        </td>
+                        <td class="@leaveClass">
+                            @leaveDays
+                            @if (isOverLimit)
+                            {
+                                <span class="ms-2 text-danger">(Over limit!)</span>
+                            }
+                        </td>
+                        <td class="@(annualDays < 0 ? "text-danger fw-bold" : "")">
+                            @annualDays
+                            @if (annualDays < 0)
+                            {
+                                <span class="ms-2 text-danger">(Over limit!)</span>
+                            }
+                        </td>
+                        <td>
+                            @if (item.Status == LeaveStatus.Pending)
+                            {
+                                <a class="btn btn-warning btn-sm rounded-pill" asp-action="Edit" asp-route-id="@item.Id">
+                                    <i class="fa fa-edit"></i> Edit
+                                </a>
+                                <a class="btn btn-danger btn-sm rounded-pill" asp-action="Delete" asp-route-id="@item.Id">
+                                    <i class="fa fa-trash"></i> Delete
+                                </a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="d-flex justify-content-center align-items-center mt-4" id="pagination">
+        <!-- Pagination buttons will be inserted here -->
+    </div>
+
+    <!-- Bouton Back to Dashboard -->
+    <div class="mt-4 text-center">
+        <a asp-controller="Employes" asp-action="DashboardEmployee" class="btn btn-outline-secondary btn-sm rounded-pill px-3 py-1 shadow-sm fw-semibold">
+            <i class="bi bi-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+</div>
+
+@section Scripts {
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <script>
+        const rowsPerPage = 10;
+        let currentPage = 1;
+
+        const allRows = Array.from(document.querySelectorAll('#leaveTable tbody tr'));
+        let filteredRows = [...allRows]; // default = all rows
+
+        function paginate() {
+            const start = (currentPage - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+
+            allRows.forEach(row => row.style.display = 'none'); // hide all rows
+            filteredRows.forEach((row, index) => {
+                if (index >= start && index < end) {
+                    row.style.display = '';
+                }
+            });
+
+            renderPagination();
+        }
+
+        function renderPagination() {
+            const pagination = document.getElementById('pagination');
+            const totalPages = Math.ceil(filteredRows.length / rowsPerPage);
+            pagination.innerHTML = '';
+
+            // Toujours afficher la pagination, même si 1 page
+            const pageText = document.createElement('span');
+            pageText.textContent = `Page ${currentPage} of ${totalPages}`;
+            pagination.appendChild(pageText);
+
+            if (totalPages > 1) {
+                for (let i = 1; i <= totalPages; i++) {
+                    const btn = document.createElement('button');
+                    btn.textContent = i;
+                    btn.className = `btn btn-sm ${i === currentPage ? 'btn-primary' : 'btn-outline-primary'} mx-1 rounded-pill`;
+                    btn.addEventListener('click', function() {
+                        currentPage = i;
+                        paginate();
+                    });
+                    pagination.appendChild(btn);
+                }
+            }
+        }
+
+        document.getElementById('searchInput').addEventListener('input', function () {
+            const searchValue = this.value.trim().toLowerCase();
+
+            filteredRows = allRows.filter(row => {
+                const priority = row.querySelector('td:nth-child(4)')?.textContent.trim().toLowerCase() || '';
+                const status = row.querySelector('td:nth-child(5) .badge')?.textContent.trim().toLowerCase() || '';
+
+                return priority.includes(searchValue) || status.includes(searchValue);
+            });
+
+            currentPage = 1;
+            paginate();
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            paginate();
+        });
+    </script>
+}

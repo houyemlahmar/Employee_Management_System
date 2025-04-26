@@ -1,0 +1,149 @@
+﻿@model Employee_Management_System.Models.Utilisateur
+@{
+    ViewData["Title"] = "Create Account";
+    Layout = "_Layout";
+}
+
+<div class="d-flex align-items-center justify-content-center vh-100 bg-soft">
+    <div class="card login-card p-5 shadow-lg animated zoomIn">
+        <h2 class="text-center mb-4 text-primary-gradient">Create Account</h2>
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+        }
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+        }
+
+        <form asp-controller="Compte" asp-action="Register" method="post">
+            <div class="mb-3">
+                <label class="form-label">User Name</label>
+                <input asp-for="Username" class="form-control soft-input" placeholder="Enter your Full Name" />
+                <span asp-validation-for="Username" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input asp-for="Email" type="email" class="form-control soft-input" placeholder="Enter your email" />
+                <span asp-validation-for="Email" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input asp-for="Password" type="password" class="form-control soft-input" placeholder="Enter your password" />
+                <span asp-validation-for="Password" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label">Role</label>
+                <select asp-for="Role" class="form-select soft-input" asp-items="new SelectList(ViewBag.Roles)">
+                    <option value="">-- Select role --</option>
+                </select>
+                <span asp-validation-for="Role" class="text-danger small"></span>
+            </div>
+
+            <button type="submit" class="btn btn-soft-primary w-100 mb-3">Create Account</button>
+        </form>
+
+        <div class="text-center">
+            <small>Already have an account? <a asp-action="LoginHR" class="text-decoration-none text-primary-gradient">Login</a></small>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        body {
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* Soft background with pastel gradient */
+        .bg-soft {
+            background: linear-gradient(135deg, #fdfbfb, #ebedee);
+            background-size: 200% 200%;
+            animation: gradientFlow 10s ease infinite alternate;
+        }
+
+        @@keyframes gradientFlow {
+            0%
+
+        {
+            background-position: 0% 50%;
+        }
+
+        100% {
+            background-position: 100% 50%;
+        }
+
+        }
+
+        /* Card */
+        .login-card {
+            background: #ffffff;
+            border-radius: 1rem;
+            width: 100%;
+            max-width: 450px;
+            animation: floatIn 1s ease forwards;
+            opacity: 0;
+        }
+
+        /* Floating effect */
+        @@keyframes floatIn {
+            from
+
+        {
+            transform: translateY(20px);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        }
+
+        /* Soft input style */
+        .soft-input {
+            border-radius: 0.8rem;
+            padding: 0.8rem 1rem;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            transition: all 0.3s ease;
+        }
+
+            .soft-input:focus {
+                background: #ffffff;
+                box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
+                border-color: #0d6efd;
+            }
+
+        /* Text gradient */
+        .text-primary-gradient {
+            background: linear-gradient(90deg, #74ebd5, #acb6e5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        /* Soft primary button */
+        .btn-soft-primary {
+            background: linear-gradient(90deg, #74ebd5, #acb6e5);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            font-weight: 600;
+            border-radius: 0.8rem;
+            transition: all 0.4s ease;
+        }
+
+            .btn-soft-primary:hover {
+                background: linear-gradient(90deg, #acb6e5, #74ebd5);
+                transform: scale(1.03);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            }
+    </style>
+}

@@ -1,0 +1,129 @@
+﻿@model Employee_Management_System.Models.LeaveApplication
+@{
+    ViewData["Title"] = "Edit Leave Application";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-5 pb-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg rounded-4">
+                <div class="card-header custom-header-yellow">
+                    <h2 class="mb-0">Edit Leave Application</h2>
+                </div>
+                <div class="card-body p-5">
+                    <form asp-action="Edit">
+                        <input type="hidden" asp-for="Id" />
+
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label asp-for="StartDate" class="form-label">Start Date</label>
+                                <input asp-for="StartDate" class="form-control custom-input" type="date" />
+                                <span asp-validation-for="StartDate" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="EndDate" class="form-label">End Date</label>
+                                <input asp-for="EndDate" class="form-control custom-input" type="date" />
+                                <span asp-validation-for="EndDate" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label asp-for="Type" class="form-label">Leave Type</label>
+                                <input asp-for="Type" class="form-control custom-input" placeholder="Enter leave type" />
+                                <span asp-validation-for="Type" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="Priority" class="form-label">Priority</label>
+                                <select asp-for="Priority" class="form-select custom-select" asp-items="Html.GetEnumSelectList<LeavePriority>()"></select>
+                                <span asp-validation-for="Priority" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Description" class="form-label">Description</label>
+                            <textarea asp-for="Description" class="form-control custom-input" rows="4" placeholder="Enter description"></textarea>
+                            <span asp-validation-for="Description" class="text-danger small"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn custom-btn-yellow btn-sm w-50 me-2">
+                                <i class="bi bi-save"></i> Save Changes
+                            </button>
+                            <a asp-action="MyLeaves" class="btn custom-btn-outline-lightyellow btn-sm w-50 ms-2">
+                                <i class="bi bi-arrow-left"></i> Back to List
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .custom-header-yellow {
+            background-color: #FFD93D; /* Jaune principal */
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .custom-input {
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .custom-select {
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .custom-btn-yellow {
+            background-color: #FFC107;
+            color: white;
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+            .custom-btn-yellow:hover {
+                background-color: #e0a800;
+            }
+
+        .custom-btn-outline-lightyellow {
+            background-color: transparent;
+            color: #FFF176; /* Jaune clair */
+            border-radius: 25px;
+            padding: 10px 20px;
+            border: 2px solid #FFF176; /* Jaune clair */
+            font-weight: bold;
+        }
+
+            .custom-btn-outline-lightyellow:hover {
+                background-color: #FFF176;
+                color: white;
+            }
+
+        .container {
+            max-width: 900px;
+        }
+
+        .row {
+            margin-bottom: 20px;
+        }
+    </style>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
