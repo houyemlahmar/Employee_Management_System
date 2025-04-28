@@ -177,9 +177,9 @@ namespace Employee_Management_System.Controllers
                 _context.Employes.Remove(employe);
                 await _context.SaveChangesAsync();
             }
-
             return RedirectToAction(nameof(Index));
         }
+
 
         private bool EmployeExists(int id)
         {
