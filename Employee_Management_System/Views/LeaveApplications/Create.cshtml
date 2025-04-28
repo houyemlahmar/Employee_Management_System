@@ -18,15 +18,16 @@
                         <div class="row mb-4">
                             <div class="col-md-6">
                                 <label asp-for="StartDate" class="form-label">Start Date</label>
-                                <input asp-for="StartDate" class="form-control custom-input" type="date" />
+                                <input asp-for="StartDate" class="form-control custom-input" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")" />
                                 <span asp-validation-for="StartDate" class="text-danger small"></span>
                             </div>
                             <div class="col-md-6">
                                 <label asp-for="EndDate" class="form-label">End Date</label>
-                                <input asp-for="EndDate" class="form-control custom-input" type="date" />
+                                <input asp-for="EndDate" class="form-control custom-input" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")" />
                                 <span asp-validation-for="EndDate" class="text-danger small"></span>
                             </div>
                         </div>
+
 
                         <div class="row mb-4">
                             <div class="col-md-6">

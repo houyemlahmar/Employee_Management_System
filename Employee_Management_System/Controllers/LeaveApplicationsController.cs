@@ -146,7 +146,6 @@ namespace Employee_Management_System.Controllers
             if (newStatus == LeaveStatus.Accepted && previousStatus != LeaveStatus.Accepted)
             {
                 
-
                 leave.Employe.AnnualLeaveDays -= leaveDays;
             }
             else if (newStatus == LeaveStatus.Refused && previousStatus == LeaveStatus.Accepted)
